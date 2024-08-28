@@ -1,0 +1,50 @@
+/* frontend/src/components/Dashboard/EventList.css */
+
+.event-list {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .event-list h3 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 18px;
+  }
+  
+  .event-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .event-item span {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  @media (max-width: 600px) {
+    .event-list {
+      padding: 15px;
+    }
+  
+    .event-list h3 {
+      font-size: 16px;
+    }
+  
+    .event-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .event-item span {
+      font-size: 14px;
+    }
+  }
+  

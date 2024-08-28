@@ -1,0 +1,28 @@
+/* frontend/src/components/Dashboard/Dashboard.css */
+
+.dashboard {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    background-color: #f4f4f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard {
+      padding: 15px;
+      max-width: 100%;
+    }
+  
+    .dashboard h2 {
+      font-size: 1.5em;
+    }
+  }
+  

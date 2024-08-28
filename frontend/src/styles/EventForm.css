@@ -1,0 +1,38 @@
+/* frontend/src/components/Calendar/EventForm.css */
+
+.event-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .event-form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .event-form button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .event-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 600px) {
+    .event-form input {
+      padding: 8px;
+    }
+  
+    .event-form button {
+      padding: 8px;
+    }
+  }
+  

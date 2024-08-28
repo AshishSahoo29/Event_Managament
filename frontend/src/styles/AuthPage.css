@@ -1,0 +1,21 @@
+/* frontend/src/components/AuthPage.css */
+
+.auth-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+  }
+  
+  .toggle-auth {
+    margin-top: 20px;
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  .toggle-auth:hover {
+    text-decoration: underline;
+  }
+  
