@@ -31,5 +31,22 @@
       flex-direction: column;
       align-items: center;
     }
+
+  }
+
+  .sign {
+    background-color: #f44336; /* Red color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .sign:hover {
+    background-color: #d32f2f; /* Darker red */
   }
   
