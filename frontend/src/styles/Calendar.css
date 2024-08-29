@@ -34,6 +34,27 @@
 
   }
 
+  .event-item button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .event-item button:hover {
+    background-color: #218838;
+  }
+
+  .event-item button:last-child {
+    background-color: #dc3545;
+  }
+
+  .event-item button:last-child:hover {
+    background-color: #c82333;
+  }
+
   .sign {
     background-color: #f44336; /* Red color */
     color: white;
