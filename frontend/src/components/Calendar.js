@@ -2,15 +2,21 @@
 import React, { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../styles/Calendar.css';
 import EventForm from './EventForm';
 import EventFilter from './EventFilter';
+
+const localizer = momentLocalizer(moment);
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
   const [eventToEdit, setEventToEdit] = useState(null);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -29,7 +35,14 @@ const Calendar = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        setEvents(res.data);
+        // setEvents(res.data);
+        const formattedEvents = res.data.map((event) => ({
+          ...event,
+          start: new Date(event.date),
+          end: new Date(event.date),
+        }));
+        setEvents(formattedEvents);
+        setFilteredEvents(formattedEvents);
       } catch (err) {
         console.error(err);
       }
@@ -38,6 +51,7 @@ const Calendar = () => {
    // Handle edit button click
    const handleEdit = (event) => {
     setEventToEdit(event);
+    setShowModal(true);
   };
 
   // Handle delete button click
@@ -53,6 +67,15 @@ const Calendar = () => {
     } catch (error) {
       console.error('Error deleting event', error);
     }
+  };
+  const handleEventClick = (event) => {
+    setEventToEdit(event);
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    setEventToEdit(null);
   };
 
   useEffect(() => {
@@ -91,15 +114,17 @@ const Calendar = () => {
         {isFilterVisible ? 'Hide Filter' : 'Show Filter'}
       </button>
       {isFilterVisible && <EventFilter onFilter={handleFilter} />}
+      
       <EventForm
         setEvents={setEvents}
-        eventToEdit={eventToEdit}
+        
         onSave={() => {
           fetchEvents();
-          setEventToEdit(null); // Clear the edit state after saving
+          
         }}
-        onCancel={() => setEventToEdit(null)}
+        
       />
+      
       {/* <ul className="event-list">
         {events.map((event) => (
           <li key={event._id} className="event-item">
@@ -110,7 +135,7 @@ const Calendar = () => {
           </li>
         ))}
       </ul> */}
-       <ul className="event-list">
+       {/* <ul className="event-list">
         {filteredEvents.length > 0 ? (
           filteredEvents.map((event) => (
             <li key={event._id} className="event-item">
@@ -123,7 +148,39 @@ const Calendar = () => {
         ) : (
           <li>No events found</li>
         )}
-      </ul>
+      </ul> */}
+      <BigCalendar
+        localizer={localizer}
+        events={filteredEvents}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500, margin: '20px 0' }}
+        onSelectEvent={handleEventClick}        
+      />  
+      {showModal && (
+        
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Edit Event</h3>
+            <EventForm
+              setEvents={setEvents}
+              eventToEdit={eventToEdit}
+              onSave={() => {
+                fetchEvents();
+                handleModalClose();
+              }}
+              onCancel={handleModalClose}
+            />
+            <button className="delete-button" onClick={() => handleDelete(eventToEdit._id)}>
+              Delete
+            </button>
+            <button className="cancel-button" onClick={handleModalClose}>
+              Cancel
+            </button>
+          </div>
+        </div>
+        
+      )}   
     </div>
   );
 };
