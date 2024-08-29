@@ -4,10 +4,13 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Calendar.css';
 import EventForm from './EventForm';
+import EventFilter from './EventFilter';
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
   const [eventToEdit, setEventToEdit] = useState(null);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
 
   const navigate = useNavigate();
 
@@ -56,6 +59,27 @@ const Calendar = () => {
     fetchEvents();
   }, []);
 
+  const handleFilter = (filterValue) => {
+     if(filterValue === null) {
+      setFilteredEvents(events);
+     }else{
+      const lowercasedFilter = filterValue.toLowerCase();
+      const filtered = events.filter((event) =>
+        event.title.toLowerCase().includes(lowercasedFilter) ||
+        new Date(event.date).toLocaleString().toLowerCase().includes(lowercasedFilter)
+      );
+      setFilteredEvents(filtered);
+    }
+  };
+
+  const toggleFilterVisibility = () => {
+    setIsFilterVisible(!isFilterVisible);
+    if (!isFilterVisible) {
+      // Reset filtered events to show all when filter is closed
+      setFilteredEvents(events);
+    }
+  };
+
 
   return (
     <div className="calendar-container">
@@ -63,6 +87,10 @@ const Calendar = () => {
       <button className="sign" onClick={handleSignOut}>
         Sign Out
       </button>
+      <button className="toggle-filter" onClick={toggleFilterVisibility}>
+        {isFilterVisible ? 'Hide Filter' : 'Show Filter'}
+      </button>
+      {isFilterVisible && <EventFilter onFilter={handleFilter} />}
       <EventForm
         setEvents={setEvents}
         eventToEdit={eventToEdit}
@@ -72,7 +100,7 @@ const Calendar = () => {
         }}
         onCancel={() => setEventToEdit(null)}
       />
-      <ul className="event-list">
+      {/* <ul className="event-list">
         {events.map((event) => (
           <li key={event._id} className="event-item">
             <span>{event.title}</span>
@@ -81,6 +109,20 @@ const Calendar = () => {
             <button onClick={() => handleDelete(event._id)}>Delete</button>
           </li>
         ))}
+      </ul> */}
+       <ul className="event-list">
+        {filteredEvents.length > 0 ? (
+          filteredEvents.map((event) => (
+            <li key={event._id} className="event-item">
+              <span>{event.title}</span>
+              <span>{new Date(event.date).toLocaleString()}</span>
+              <button onClick={() => handleEdit(event)}>Edit</button>
+              <button onClick={() => handleDelete(event._id)}>Delete</button>
+            </li>
+          ))
+        ) : (
+          <li>No events found</li>
+        )}
       </ul>
     </div>
   );

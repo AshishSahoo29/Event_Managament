@@ -1,11 +1,13 @@
 // backend/controllers/eventController.js
 const Event = require('../models/Event');
+//const sendEventConfirmation = require('../utils/email');
 
 exports.createEvent = async (req, res) => {
   const { title, description, date } = req.body;
   try {
     const newEvent = new Event({ title, description, date, user: req.user.userId });
     await newEvent.save();
+    //sendEventConfirmation(req.user.email, newEvent);
     res.status(201).json(newEvent);
   } catch (err) {
     res.status(400).json({ error: 'Error creating event.' });
@@ -33,6 +35,7 @@ exports.updateEvent = async (req, res) => {
     if (!updatedEvent) {
       return res.status(404).json({ message: 'Event not found' });
     }
+    //sendEventConfirmation(req.user.email, updatedEvent);
     res.json(updatedEvent);
   } catch (error) {
     res.status(500).json({ message: 'Error updating event', error });

@@ -1,0 +1,11 @@
+/* frontend/src/components/styles/EventFilter.css */
+.event-filter {
+    margin-bottom: 20px;
+  }
+  
+  .event-filter input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+  }
+  
