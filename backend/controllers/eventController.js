@@ -1,5 +1,8 @@
-// backend/controllers/eventController.js
+
 const Event = require('../models/Event');
+// const sendConfirmationEmail = require('../utils/email').sendConfirmationEmail;
+// const scheduleConfirmationEmail = require('../utils/scheduler'); 
+
 //const sendEventConfirmation = require('../utils/email');
 
 exports.createEvent = async (req, res) => {
@@ -7,10 +10,21 @@ exports.createEvent = async (req, res) => {
   try {
     const newEvent = new Event({ title, description, date, user: req.user.userId });
     await newEvent.save();
-    //sendEventConfirmation(req.user.email, newEvent);
+    //await sendEventConfirmation(req.user.email, newEvent);
+
+    // Add a job to the queue to send the email after 5 minutes
+    // eventQueue.add({
+    //   email: req.user.email,
+    //   event: newEvent
+    // }, {
+    //   delay: 5 * 60 * 1000 // 5 minutes in milliseconds
+    // });
+
+    //scheduleConfirmationEmail(newEvent._id, 5 * 60 * 1000);
+
     res.status(201).json(newEvent);
   } catch (err) {
-    res.status(400).json({ error: 'Error creating event.' });
+    res.status(400).json({ error: 'Error while creating event.' });
   }
 };
 
@@ -35,7 +49,7 @@ exports.updateEvent = async (req, res) => {
     if (!updatedEvent) {
       return res.status(404).json({ message: 'Event not found' });
     }
-    //sendEventConfirmation(req.user.email, updatedEvent);
+    //await sendEventConfirmation(req.user.email, updatedEvent);
     res.json(updatedEvent);
   } catch (error) {
     res.status(500).json({ message: 'Error updating event', error });

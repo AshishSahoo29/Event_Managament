@@ -1,4 +1,4 @@
-// frontend/src/components/Calendar/EventFilter.js
+
 import React, { useState } from 'react';
 import '../styles/EventFilter.css';
 

@@ -1,4 +1,4 @@
-/* frontend/src/components/Calendar/Calendar.css */
+
 
 .calendar-container {
     padding: 20px;
@@ -113,7 +113,7 @@
 
 
 
-/* Modal Styles */
+/* for modal styles */
 .modal-overlay {
   position: fixed;
   top: 0;

@@ -1,4 +1,4 @@
-// frontend/src/components/Dashboard/Dashboard.js
+
 import React, { useState } from 'react';
 import EventForm from './EventForm';
 import EventList from './EventList';

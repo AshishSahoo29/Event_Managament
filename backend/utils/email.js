@@ -1,4 +1,4 @@
-// backend/utils/email.js
+
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
@@ -26,22 +26,22 @@ const sendReminder = (email, event) => {
   });
 };
 
-const sendEventConfirmation = (email, event) => {
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: email,
-    subject: 'Event Confirmation',
-    text: `Your event "${event.title}" has been successfully registered or modified. Event date: ${new Date(event.date).toLocaleString()}`,
-  };
+// const sendEventConfirmation = (email, event) => {
+//   const mailOptions = {
+//     from: process.env.EMAIL_USER,
+//     to: email,
+//     subject: 'Event Confirmation',
+//     text: `Your event "${event.title}" has been successfully registered. Event date: ${new Date(event.date).toLocaleString()}`,
+//   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Confirmation email sent: ' + info.response);
-    }
-  });
-};
+//   transporter.sendMail(mailOptions, (error, info) => {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log('Confirmation email sent: ' + info.response);
+//     }
+//   });
+// };
 
 
-module.exports = { sendReminder, sendEventConfirmation };
+module.exports = { sendReminder };

@@ -1,4 +1,4 @@
-// frontend/src/components/Calendar/EventForm.js
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/EventForm.css';
@@ -10,7 +10,7 @@ const EventForm = ({ setEvents,  eventToEdit, onSave, onCancel }) => {
   useEffect(() => {
     if (eventToEdit) {
       setTitle(eventToEdit.title);
-      setDate(new Date(eventToEdit.date).toISOString().slice(0, 16)); // Convert date for input field
+      setDate(new Date(eventToEdit.date).toISOString().slice(0, 16)); 
     } else {
       setTitle('');
       setDate('');
@@ -21,7 +21,7 @@ const EventForm = ({ setEvents,  eventToEdit, onSave, onCancel }) => {
     e.preventDefault();
     try {
       if (eventToEdit) {
-        // Update existing event
+        // update event
         const res = await axios.put(
           `${process.env.REACT_APP_API_URL}/events/${eventToEdit._id}`,
           { title, date },
@@ -34,9 +34,9 @@ const EventForm = ({ setEvents,  eventToEdit, onSave, onCancel }) => {
         setEvents((prevEvents) =>
           prevEvents.map((event) => (event._id === res.data._id ? res.data : event))
         );
-        onSave(); // Call onSave after successful edit
+        onSave(); // call successful edit
       } else {
-        // Create new event
+        // or create new event
         const res = await axios.post(
           `${process.env.REACT_APP_API_URL}/events`,
           { title, date },

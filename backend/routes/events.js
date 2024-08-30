@@ -1,4 +1,4 @@
-// backend/routes/events.js
+
 const express = require('express');
 const { createEvent, getEvents, updateEvent, deleteEvent } = require('../controllers/eventController');
 const auth = require('../middlewares/auth');

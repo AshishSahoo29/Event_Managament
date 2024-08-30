@@ -1,4 +1,4 @@
-// frontend/src/components/Calendar/Calendar.js
+
 import React, { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
@@ -21,10 +21,10 @@ const Calendar = () => {
   const navigate = useNavigate();
 
   const handleSignOut = () => {
-    // Remove the token from localStorage
+    // remove token 
     localStorage.removeItem('token');
 
-    // Redirect to the auth page (login and register page)
+    // redirect to the auth page (login and register page)
     navigate('/');
   };
 
@@ -48,13 +48,13 @@ const Calendar = () => {
       }
     };
 
-   // Handle edit button click
+   // handle edit button click
    const handleEdit = (event) => {
     setEventToEdit(event);
     setShowModal(true);
   };
 
-  // Handle delete button click
+  // handle delete button click
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/events/${id}`, {
@@ -62,7 +62,7 @@ const Calendar = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      // Refresh events list after deletion
+      // refresh events list 
       fetchEvents();
     } catch (error) {
       console.error('Error deleting event', error);
@@ -98,7 +98,7 @@ const Calendar = () => {
   const toggleFilterVisibility = () => {
     setIsFilterVisible(!isFilterVisible);
     if (!isFilterVisible) {
-      // Reset filtered events to show all when filter is closed
+      // reset  to show all when filter is closed
       setFilteredEvents(events);
     }
   };
